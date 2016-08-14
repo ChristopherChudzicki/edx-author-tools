@@ -1,0 +1,84 @@
+<problem>
+<script type="loncapa/python">
+import python_lib.cfn_tools as cfn_tools
+
+# Define the check function
+def cfn1(expect,answer):
+    def grade_part(part):
+        grade = {}
+        dec = float(part)/100
+        if 0 &lt; dec &lt; 1:
+            grade['ok'] = 'Partial'
+            grade['grade_decimal'] = dec
+            grade['msg'] = "Your input was partially correct!"
+        elif dec == 1.0:
+            grade['ok'] = True
+            grade['msg'] = "Your input was entirely correct!"
+        else:
+            grade['ok'] = False
+            grade['msg'] = "Your input was totallly wrong!" 
+        return grade
+    input_list = []
+    for index, part in enumerate(answer):
+        grade = {}
+        try:
+            grade = grade_part(part)
+            if index == 3:
+                grade['msg'] = ""
+        except:
+            grade['ok'] = False
+            grade['msg'] = "Your input was totallly wrong!"
+        input_list.append(grade)
+    
+    # Having two customresponse tags with overall messages is buggy, so I won't demo that.
+    return {'overall_message': "", 'input_list':input_list}
+    
+# Now make it pretty
+cfn2 = cfn_tools.pretty(cfn1)
+# or customize the prettyness
+pretty_settings = {
+    'correct':{'label':"Great!"},
+    'partially-correct':{'color':'navy'}
+}
+cfn3 = cfn_tools.pretty(cfn1, settings = pretty_settings)
+</script>
+    <p>Enter <code>0</code> for partial credit, <code>100</code> for full credit, or a number in between for partial credit.</p>
+    <div style="width:33%;float:left">
+        <p><strong>Default Style:</strong> using <br/>
+        <code>def cfn1(expect, answer): #etc</code>
+        </p>
+        <customresponse cfn="cfn1">
+            <textline/>
+            <textline/>
+            <textline/>
+            <text>No message for this one:</text>
+            <textline/>
+        </customresponse>
+    </div>
+    <div style="width:33%;float:left">
+        <p><strong>Default Style:</strong> using <br/>
+        <code>cfn2 = cfn_tools.pretty(cfn1)</code>
+        </p>
+        <customresponse cfn="cfn2">
+            <textline/>
+            <textline/>
+            <textline/>
+            <text>No message for this one:</text>
+            <textline/>
+        </customresponse>
+    </div>
+    <div style="width:33%;float:right">
+        <p><strong>Default Style:</strong> using <br/>
+        <code>cfn3 = cfn_tools.pretty(cfn1, settings=...)</code>
+        </p>
+        <customresponse cfn="cfn3">
+            <textline/>
+            <textline/>
+            <textline/>
+            <text>No message for this one:</text>
+            <textline/>
+        </customresponse>
+    </div>
+    <div style="clear:both"></div>
+</problem>
+

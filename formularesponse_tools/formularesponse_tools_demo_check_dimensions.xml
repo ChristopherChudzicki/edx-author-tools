@@ -1,0 +1,48 @@
+<problem display_name = "Checking Dimensions">
+<script type="text/python">
+<![CDATA[
+import python_lib.formularesponse_tools.check_dimensions as cd
+import python_lib.hfn_tools as hfn_tools
+
+expected="sqrt(2*h/g)*v_0"
+samples = "v_0,g,h@ 1,1,1:2,2,2 #3"
+
+##################################################
+# Declare variable dimensions
+##################################################
+L = cd.Dimension({"Length":1})
+T = cd.Dimension({"Time":1})
+dims_dict = {
+    'v_0': L/T,
+    'g': L/T**2,
+    'h': L
+}
+
+##################################################
+# Load the hint function
+##################################################
+# customize feedback messages:
+feedback_messages = {'add_error': 'Your submission contains addition between two quantities with different dimensions. <br/> We suggest checking the dimensions of each piece in order to help find your error.'}
+# create the dimension checker
+dim_checker = cd.DimensionsChecker(expected, samples, dims_dict, feedback_messages = feedback_messages)
+# get its hint function
+hint_fn = dim_checker.hint_fn
+
+##################################################
+# Optional: Make hint_fn pretty using hfn_tools.pretty 
+##################################################
+# hint_fn = hfn_tools.pretty(hint_fn)
+
+]]>
+</script>
+
+<p><em><strong>Note:</strong> This problem looks for dimension errors in student input.</em></p>
+
+<p>From a height \(h\) above the ground, you throw a ball horizontally with speed \(v_0\). What horizontal distance will the ball travel before striking the ground? Answer in terms of <code>h</code>, <code>v_0</code>, and <code>g</code>. </p>
+
+    <formularesponse type="cs" answer="$expected" samples="$samples">
+      <responseparam default="0.01%" type="tolerance"/>
+      <textline math="1" inline="1"/>
+      <hintgroup hintfn="hint_fn"/>
+    </formularesponse>
+</problem>

@@ -1,0 +1,35 @@
+<problem>
+<script type="loncapa/python">
+<![CDATA[
+import python_lib.cfn_tools as cfn_tools
+cfn = cfn_tools.debugger
+]]>
+</script>
+
+
+<p><strong>Debugger</strong>: Shows what each inputfield in a customresponse problem is passing to Python.</p>
+
+<customresponse cfn="cfn">
+    <div style="float:left;width:25%">
+        <textline/>
+        <textline/>
+    </div>
+    <div style="float:right;width:75%">
+        <drag_and_drop_input img="https://studio.edx.org/c4x/edX/DemoX/asset/L9_buckets.png">
+            <draggable id="a" label="a"/>
+            <draggable id="dog" label="bog"/>
+            <draggable id="droll" label="droll"/>
+            <draggable id="obo" label="oboe"/>
+            <draggable id="swain" label="swain"/>
+            <draggable id="in" label="in"/>
+            <draggable id="onyx" label="onyx"/>
+            <draggable id="of" label="of"/>
+            <draggable id="tap" label="tap"/>
+            <draggable id="strop" label="strop"/>
+            <draggable id="few" label="few"/>
+        </drag_and_drop_input>
+    </div>
+</customresponse>
+<div style="clear:both"></div>
+
+</problem>
