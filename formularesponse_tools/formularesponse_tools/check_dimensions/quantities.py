@@ -134,7 +134,7 @@ class Quantity(numbers.Number):
             assert other.dims == Dimension({})
             other = other.value
         result_dims = self.dims ** other
-        result_value = self.value ** other
+        result_value = (self.value+0j) ** other
         return Quantity(result_value, result_dims)
     def __div__(self, other):
         other = self.__class__._ensure_quantity(other)
