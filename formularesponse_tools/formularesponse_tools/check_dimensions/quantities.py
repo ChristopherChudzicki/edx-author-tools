@@ -19,6 +19,10 @@ class DimensionArgumentError(Exception):
     """Raise this error when the argument x of a function f(x) has nontrivial dimension.
     """
     pass
+class DimensionPowerError(Exception):
+    """Raise this error during x^y when y has nontrivial dimensions
+    """
+    pass
 class IndeterminateDimensionError(Exception):
     """Some possible answer strings have dimensions that depend on variable values. E.g., if
             [v] = length / time
@@ -131,11 +135,18 @@ class Quantity(numbers.Number):
         return self.__mul__(other)
     def __pow__(self, other):
         if isinstance(other,self.__class__):
-            assert other.dims == Dimension({})
+            if not other.dims == Dimension({}):
+                raise DimensionPowerError
             other = other.value
         result_dims = self.dims ** other
         result_value = (self.value+0j) ** other
         return Quantity(result_value, result_dims)
+    def __rpow__(self, other):
+        if not self.dims == Dimension({}):
+            raise DimensionPowerError
+        else:
+            result_value = other**self.value
+            return Quantity(result_value, Dimension({}))
     def __div__(self, other):
         other = self.__class__._ensure_quantity(other)
         return self*other**-1

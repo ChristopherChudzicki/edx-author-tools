@@ -4,7 +4,7 @@ import random
 from .. import calc
 from .. import functions
 from feedback_messages import DEFAULT_MESSAGES
-from quantities import Dimension, Quantity, DimensionMismatchError, DimensionArgumentError, IndeterminateDimensionError
+from quantities import Dimension, Quantity, DimensionMismatchError, DimensionArgumentError, DimensionPowerError, IndeterminateDimensionError
 
 
 def dimensionless_func(func):
@@ -120,6 +120,8 @@ class DimensionsChecker(object):
             msg = self.feedback_messages['add_error']
         except DimensionArgumentError as e:
             msg = self.feedback_messages['arg_error'].format(func=e[0])
+        except DimensionPowerError:
+            msg = self.feedback_messages['pow_error']
         
         try:
             dims = self.get_dimensions_value(given, samples)
