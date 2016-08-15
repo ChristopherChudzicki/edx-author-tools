@@ -47,12 +47,15 @@ class DimensionsChecker(object):
 
         out = []
         for var_dict in var_dict_list:
-            out.append(calc.evaluator(
+            evaluation = calc.evaluator(
                 var_dict,
                 dim_funcs,
                 answer,
-                case_sensitive=self.case_sensitive,
-            ))
+                case_sensitive=self.case_sensitive
+            )
+            if isinstance(evaluation, float) or isinstance(evaluation, int):
+                evaluation = Quantity(evaluation,{})
+            out.append(evaluation)
         return out
 
     def randomize_variables(self, samples):
@@ -111,7 +114,7 @@ class DimensionsChecker(object):
     def get_hint_msg(self, expected, given, samples):
         msg = ""
         try:
-            dims_ok = self.check_dims_same(self.expected, given, self.samples )
+            dims_ok = self.check_dims_same(expected, given, samples )
             msg = self.feedback_messages[dims_ok]
         except DimensionMismatchError:
             msg = self.feedback_messages['add_error']
@@ -119,7 +122,7 @@ class DimensionsChecker(object):
             msg = self.feedback_messages['arg_error'].format(func=e[0])
         
         try:
-            dims = self.get_dimensions_value(given, self.samples)
+            dims = self.get_dimensions_value(given, samples)
         except (IndeterminateDimensionError, DimensionMismatchError, DimensionArgumentError):
             dims = ""
         

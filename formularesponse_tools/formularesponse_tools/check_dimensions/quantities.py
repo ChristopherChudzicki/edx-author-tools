@@ -110,16 +110,16 @@ class Quantity(numbers.Number):
         other = self.__class__._ensure_quantity(other)
         if other == Quantity(0,{}):
             return self
-        result_dims = self.dims + other.dims
-        result_value = self.value + other.value
-        return Quantity(result_value, result_dims)
+        elif self == Quantity(0,{}):
+            return other
+        else:
+            result_dims = self.dims + other.dims
+            result_value = self.value + other.value
+            return Quantity(result_value, result_dims)
     def __radd__(self, other):
         return self.__add__(other)
     def __sub__(self, other):
-        other = self.__class__._ensure_quantity(other)
-        result_dims = self.dims - other.dims
-        result_value = self.value - other.value
-        return Quantity(result_value, result_dims)
+        return self.__add__(-1*other)
     def __rsub__(self, other):
         return -1*self.__sub__(other)
     def __mul__(self, other):
