@@ -24,3 +24,4 @@ As the name suggests, hint functions can be used to provide feedback messages. B
 2. plug in complex numbers (e.g., to enfore `a_conj * a = abs(a^2)` in quantum mechanics courses)
 3. check if a student submission has correct limits
 4. check if a student submission is off by a scale factor
+5. check if a vector expression is valid (e.g., 8.01 uses variables ihat, jhat, khat; students often forgot the ihat, and we could have an automatic message for this.)
