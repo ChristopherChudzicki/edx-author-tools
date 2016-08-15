@@ -4,7 +4,7 @@ import random
 from .. import calc
 from .. import functions
 from feedback_messages import DEFAULT_MESSAGES
-from quantities import Dimension, Quantity, DimensionMismatchError, DimensionMismatchError, IndeterminateDimensionError
+from quantities import Dimension, Quantity, DimensionMismatchError, DimensionArgumentError, IndeterminateDimensionError
 
 
 def dimensionless_func(func):

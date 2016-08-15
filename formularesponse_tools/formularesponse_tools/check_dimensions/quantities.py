@@ -74,7 +74,7 @@ class Dimension(object):
         else:
             raise DimensionMismatchError("Can't add two quantities with different dimensions.")
     def __sub__(self, other):
-        return self.__add__(self, other)
+        return self.__add__(other)
     def is_dimensionless(self):
         return self == Dimension({})
 
@@ -120,6 +120,8 @@ class Quantity(numbers.Number):
         result_dims = self.dims - other.dims
         result_value = self.value - other.value
         return Quantity(result_value, result_dims)
+    def __rsub__(self, other):
+        return -1*self.__sub__(other)
     def __mul__(self, other):
         other = self.__class__._ensure_quantity(other)
         result_dims = self.dims * other.dims
