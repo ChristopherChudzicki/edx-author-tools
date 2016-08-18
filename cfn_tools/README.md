@@ -4,6 +4,24 @@ Helper tools to make check functions for edX customresponse problems. Two functi
 1. `pretty`, a decorator that formats customresponse feedback messages similarly to other edX feedback messages.
 2. `debugger`, a simple check function that that displays the inputs passed to python. 
 
+## Installation
+If your course does not already have a `python_lib.zip` folder, upload `python_lib.zip` to your static directory.
+
+**If your course already has a `python_lib.zip`** folder containing `other_module.py`, combine this `python_lib` and your `python_lib` to obtain a folder with structure
+
+```
+python_lib
+    __init__.py
+    cfn_tools.py
+    other_module.py
+```
+
+In problem XML, import these python libraries as
+```
+import python_lib.cfn_tools as cfn_tools
+import python_lib.other_module as other_module
+```
+
 ##The Pretty Decorator
 
 ###Example
