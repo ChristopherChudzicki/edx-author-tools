@@ -5,6 +5,8 @@ Helper tools to make check functions for edX customresponse problems. Two functi
 2. `debugger`, a simple check function that that displays the inputs passed to python. 
 
 ## Installation
+*This installation is for edx.org or edge.edx.org. Installation on other instances of edX may be slightly different.*
+
 If your course does not already have a `python_lib.zip` folder, upload `python_lib.zip` to your static directory.
 
 **If your course already has a `python_lib.zip`** folder containing `other_module.py`, combine this `python_lib` and your `python_lib` to obtain a folder with structure
