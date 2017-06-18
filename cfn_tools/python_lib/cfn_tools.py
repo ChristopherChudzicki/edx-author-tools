@@ -110,4 +110,6 @@ def debugger(expect,answer):
     part_template = "Python sees: <pre><span style='font-size:16px'>{part}</span></pre> of type <code>{pytype}</code>"
     input_list = [{"ok":True,"msg":part_template.format(part=part, pytype=type(part).__name__)} for part in answer]
     
-    return {"overall_message":"Overall Message","input_list":input_list}
+    overall_message = "Expect: {expect} of type {etype}".format(expect=expect, etype=type(expect).__name__)
+    
+    return {"overall_message": overall_message ,"input_list":input_list}
