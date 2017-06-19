@@ -93,3 +93,28 @@ class Course(object):
             return element
     def export(self):
         export_XML(self.expanded, self.course_path[:-4] + "_consolidated.xml" )
+    def export_OPML(self, url_front=""):
+        OPML = etree.Element('opml')
+        OPML_body = etree.SubElement(OPML,'body')
+        
+        outline = self._to_outline(self.expanded, OPML_body, url_front=url_front)
+        string =  etree.tostring(OPML, pretty_print = True)
+        export_XML(OPML, self.course_path[:-4] + "_outline.xml")
+    def _to_outline(self, content, outline, url_front="" ):
+        for content_child in content:
+            outline_child = etree.SubElement(outline,'outline')
+            display_name = content_child.get('display_name')
+            tag = content_child.tag
+            url_name = content_child.get('url_name')
+            
+            outline_child.attrib['type'] = tag
+            outline_child.attrib['url_name'] = url_name
+            outline_child.attrib['text'] = "{tag}: {display_name}".format(tag=tag.title(), display_name=display_name)
+            
+            if tag == 'vertical': # Create a link
+                outline_child.attrib['_note'] = "{url_front}/jump_to_id/{url_name}".format(url_front=url_front, url_name=url_name )
+            if tag in self.not_leaves:
+                self._to_outline(content_child, outline_child, url_front=url_front)
+            else:
+                continue
+            
