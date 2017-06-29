@@ -36,6 +36,7 @@ The decorator `cfn_tools.pretty` adds:
     -Increases fontsize to 110% of normal for feedback messages.
 
 Each of these is customizable.
+
 ###Usage
 Zip `python_lib` and upload it to your course static directory. (Or add `cfn_tools.py` to an existing `python_lib`). Then import cfn_tools:
 
